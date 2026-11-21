@@ -1,6 +1,6 @@
 # Patterns
 
-Techniques collected from ~90 episodes, written as tools rather than examples. Use whichever ones the
+Techniques collected from past episodes, written as tools rather than examples. Use whichever ones the
 scenario needs; none of them is required, and new episodes can invent their own. Helpers named `E.*` live in
 `lib/episode.py`, `K.*` in `lib/gt.py`, `Wd.*` in `lib/world.py`, iso primitives in `lib/iso.py`.
 

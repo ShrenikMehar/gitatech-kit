@@ -4,7 +4,7 @@
   python3 voices.py <episode_dir>
 
 Default engine: Microsoft neural voices through edge-tts (natural Hindi + English, real word timings).
-Shrenik picked: one Hindi male voice (hi-IN-MadhurNeural) for both, Arjun faster/higher, Krishna a bit deeper.
+The chosen voice: one Hindi male voice (hi-IN-MadhurNeural) for both, Arjun faster/higher, Krishna a bit deeper.
 Per character in script.json "voices": {"engine": "edge", "name": "...", "rate": "+12%", "pitch": "+18Hz"}.
 Per line overrides: "rate", "pitch". Write English tech words in Latin letters inside `say` so they're said as English.
 Long pauses inside a line are shortened to "max_pause" seconds (script top level, default 0.32).
