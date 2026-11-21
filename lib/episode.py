@@ -220,10 +220,16 @@ def verse_card(c, t, t_in, lines, ref, y0=250, a_out=1.0):
     Wd.text(c, ref, 540, y0 + h - 26 + dy, 'semi', 20, hexc('#d8c8d8'), 0.85*a, align='center', spacing=3)
 
 
-def hud(c, t, label, value, col, t_change, a=1.0, sub=''):
-    """Top-right label + big value that pops when it changes at t_change. Keep the HUD area (y < ~190) free otherwise."""
+def hud(c, t, label, value, col, t_change, a=1.0, sub='', plate=False):
+    """Top-right label + big value that pops when it changes at t_change. Keep the HUD area (y < ~190) free otherwise.
+    plate=True draws a dark rounded backing, needed over bright scenes (daytime walls, white kitchens)."""
     if a <= 0.01:
         return
+    if plate:
+        w_ = max(230, 48 + 40*len(str(value)) + (18*len(sub) if sub else 0), 14*len(label) + 60)
+        rr = skia.RRect.MakeRectXY(skia.Rect(W - 30 - w_, 40, W - 30, 170), 22, 22)
+        blurred(c, skia.Path().addRRect(rr), hexc('#000000'), 0.35*a, 14)
+        c.drawRRect(rr, P(hexc('#120c1e'), 0.82*a))
     Wd.text(c, label, W - 52, 74, 'semi', 19, Wd.TXT2, a, align='right', spacing=2.5)
     pop = max(0.0, 1 - (t - t_change)/0.4)**2 if t >= t_change else 0.0
     c.save(); s = 1 + 0.3*pop
