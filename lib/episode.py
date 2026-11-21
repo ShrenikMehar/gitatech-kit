@@ -252,7 +252,7 @@ SYN = {'kw': '#c792ea', 'cls': '#ffcb6b', 'fn': '#82aaff', 'fn2': '#89ddff', 'st
        'cm': '#7f7aa8', 'ok': '#38e58f', 'err': '#ff5470', 'dim': '#8a86b0'}
 
 
-def code_line(c, toks, x, y, a=1.0, size=29, nchars=None):
+def code_line(c, toks, x, y, a=1.0, size=32, nchars=None):
     """One line of syntax-coloured mono code. toks: [(text, kind)] with kind in SYN. nchars types it out.
     Returns (x_end, chars_drawn). JetBrains Mono here is a latin subset: no arrows, use '›'."""
     fm = Wd.font('mono', size)
