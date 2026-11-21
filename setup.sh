@@ -14,6 +14,13 @@ from PIL import features
 import skia
 print("skia", skia.__version__, "| raqm (Devanagari shaping):", features.check("raqm"))
 if not features.check('raqm'):
-    print('WARNING: Pillow has no raqm -> Mac: brew install fribidi | Linux: apt-get install -y libraqm0. Without it Devanagari conjuncts break.')
+    import platform, sys
+    print('WARNING: Pillow has no raqm, so Devanagari conjuncts will break.')
+    if platform.system() == 'Darwin':
+        print('  Mac: brew install fribidi. If this still says False, macOS system Python cannot see Homebrew libraries;')
+        print('  fix with: sudo mkdir -p /usr/local/lib && sudo ln -sf "$(brew --prefix)/lib/libfribidi.dylib" /usr/local/lib/')
+        print('  (python in use: ' + sys.executable + ')')
+    else:
+        print('  Linux: apt-get install -y libraqm0')
 PY
 echo "All set. Voices use Microsoft neural voices (edge-tts, needs network). Offline fallback: Kokoro (model ~350 MB downloads on first use)."
