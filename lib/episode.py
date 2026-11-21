@@ -15,7 +15,6 @@ import argparse
 import json
 import math
 import os
-import re
 import subprocess
 from collections import OrderedDict
 import multiprocessing as mp
@@ -31,8 +30,24 @@ from iso import P, SP, blurred, ca, glow, hexc
 W, H = 1080, 1920
 EP = os.environ.get('GT_EP', os.getcwd())
 TL = json.load(open(f'{EP}/timeline.json'))
+
+
+def keep_punct_in_emphasis(cap):
+    """Move punctuation that directly follows an *emphasised* span inside it ('*so,*' not '*so*,'), so captions don't
+    split it off. Works on properly paired spans only: odd chunks after splitting on '*' are emphasised."""
+    parts = cap.split('*')
+    if len(parts) % 2 == 0:          # unbalanced '*': leave the caption alone
+        return cap
+    for i in range(1, len(parts) - 1, 2):
+        nxt = parts[i + 1]
+        n = len(nxt) - len(nxt.lstrip(',.…!?'))
+        if n and (len(nxt) == n or not nxt[n].isalnum()):   # '.in' starts a word: not trailing punctuation
+            parts[i], parts[i + 1] = parts[i] + nxt[:n], nxt[n:]
+    return '*'.join(parts)
+
+
 for _l in TL['lines']:
-    _l['cap'] = re.sub(r'\*([^*]+)\*([,.…!?]+)', r'*\1\2*', _l['cap'])   # keep trailing punctuation inside emphasis
+    _l['cap'] = keep_punct_in_emphasis(_l['cap'])
 L = {l['id']: l for l in TL['lines']}
 ORDER = [l['id'] for l in TL['lines']]
 DUR = TL['duration']
