@@ -57,7 +57,7 @@ Viewers should clearly get the tech, but story, characters and world make it wat
 - **Make these choices genuinely random**, not 'different from last time'. Roll for them to avoid habits, e.g. `python3 -c "import random; print(random.choice([...]))"`, then shape the episode around the result; re-roll or skip when a clearly better idea exists. Never mention the rolls to him.
 
 ### Dialogue
-- **Dialogue throughout.** He disliked a reel with a long wordless stretch (the microservices one): keep any stretch without a voice under ~3 s, hooks included. Too sparse is also a miss: he rejected a 4-line script as too short; episodes that worked had roughly 9–13 lines.
+- **Dialogue throughout.** He disliked a reel with a long wordless stretch (the microservices one): keep any stretch without a voice under ~3 s, hooks included. Too sparse is also a miss: he rejected a 4-line script as too short; episodes that worked had roughly 9–13 lines. **Estimate length as ~5 s per line** at the default voice rates when you propose it (14 lines came out at 71 s against a planned 45).
 - **Krishna's register**: gentle tum-form, never orders: 'hatao', 'karo', 'dekho', not 'hata', 'kar'.
 - **Gita moment small**: usually one spoken line with the verse on a small card for a few seconds, not recited in full.
 - Tech terms spoken in English and shown on screen; a concept tag can pair the term with its metaphor, tech term first (`circuit breaker = kachhua`).
@@ -100,3 +100,5 @@ On his laptop (Claude Code, including `batch.sh` runs), after each reel write `~
 - JetBrains Mono here is a latin subset: no `→` or `✕` (use `›`, draw icons with paths). Inter has `₹` and `↺`.
 - skia's SVG renderer drops gradient fills on `<ellipse>`: draw ellipses as paths.
 - An object in front of the path of moving things hides the key motion: check every important motion on a still.
+- Objects next to a standing bust (a jar beside Krishna) can cover the face: check object x against each bust's face on the first still.
+- Over bright scenes use `E.hud(..., plate=True)`, or the HUD is unreadable.

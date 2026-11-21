@@ -114,5 +114,8 @@ scenario needs; none of them is required, and new episodes can invent their own.
 - Caption tokens split at `*`: trailing punctuation is moved inside the emphasis on load.
 - Watch labels colliding when objects pass each other; fade labels of finished actors.
 - An object in front of the path of moving things hides the key motion: check every important motion on a still.
+- Objects placed beside a standing bust can cover its face: keep props clear of the bust's face x, or move the bust.
+- Bright daytime scenes make the HUD unreadable: `E.hud(..., plate=True)`.
+- Length: roughly 5 s per dialogue line at the default voice rates.
 - Bust renders are cached; a new (expression, mouth, blink, brow, gaze) combination costs ~50 ms the first time.
 - Render speed is roughly 2.5 to 3 frames/s per 2 cores.
