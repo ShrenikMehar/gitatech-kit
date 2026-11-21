@@ -9,7 +9,8 @@ the tanpura bed and SFX are synthesised. Used by the `gita-tech-reels` skill.
 setup.sh          one-time deps (skia-python, edge-tts, soundfile, pillow+raqm, numpy; checks ffmpeg). Safe to re-run.
 batch.sh          Claude Code: many videos from topics.txt, one fresh session each
 review.sh         weekly: turns ~/reels/notes (one per video) into proposed kit fixes on a branch you approve
-skill/SKILL.md    the gita-tech-reels skill (source of truth; claude.ai copy is saved from this)
+skill/SKILL.md    the full gita-tech-reels skill (source of truth)
+skill/bootstrap/  the small loader you install (Claude Code, claude.ai): pulls the kit, then reads skill/SKILL.md
 PATTERNS.md       reusable techniques (cameras, moving objects, code panels, HUD, cards, sound, fixing)
 starter/          a blank episode showing only the mechanics: ep.py (driver), scene.py (world), script.json
 lib/episode.py    driver runtime: timeline, word times, busts with life motion, close-ups, verse card, HUD,
@@ -38,8 +39,9 @@ python3 $GT/lib/splice.py . 21.0 24.5 --name B16_Topic      # optional: fix one 
 ```
 
 ## Many episodes (Claude Code on your laptop)
-One-time: `mkdir -p ~/.claude/skills/gita-tech-reels && ln -sf "$PWD/skill/SKILL.md" ~/.claude/skills/gita-tech-reels/SKILL.md`
-(run inside the kit; the link means a `git pull` also updates the skill).
+One-time: `mkdir -p ~/.claude/skills/gita-tech-reels && ln -sf "$PWD/skill/bootstrap/SKILL.md" ~/.claude/skills/gita-tech-reels/SKILL.md`
+(run inside the kit). The installed loader pulls the kit first and then reads `skill/SKILL.md`, so every session follows
+the latest instructions; claude.ai uses the same loader, so it never needs re-saving.
 ```
 ./batch.sh topics.txt 2      # topics.txt lines: NAME | topic ← Gita x.yy: idea
 ```
