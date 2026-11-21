@@ -7,7 +7,7 @@ the tanpura bed and SFX are synthesised. Used by the `gita-tech-reels` skill.
 ## Layout
 ```
 setup.sh          one-time deps (skia-python, edge-tts, soundfile, pillow+raqm, numpy; checks ffmpeg). Safe to re-run.
-batch.sh          Claude Code: many videos from topics.txt, one fresh session each
+batch.sh          Claude Code: videos from topics.txt one after another, fresh session each, live progress
 review.sh         weekly: turns ~/reels/notes (one per video) into proposed kit fixes on a branch you approve
 skill/SKILL.md    the full gita-tech-reels skill (source of truth)
 skill/bootstrap/  the small loader saved as the claude.ai skill: clones the kit, then reads skill/SKILL.md
@@ -44,7 +44,7 @@ One-time: `mkdir -p ~/.claude/skills/gita-tech-reels && ln -sf "$PWD/skill/SKILL
 updates with the code. claude.ai uses the loader in `skill/bootstrap/`, which clones the kit and reads the same file,
 so the claude.ai skill never needs re-saving.
 ```
-./batch.sh topics.txt 2      # topics.txt lines: NAME | topic ← Gita x.yy: idea
+./batch.sh topics.txt        # topics.txt lines: NAME | topic ← Gita x.yy: idea
 ```
 Finished reels land in `~/reels/out/`. Working files (`~/reels/.work/`, kept 7 days), logs and notes are hidden folders.
 
