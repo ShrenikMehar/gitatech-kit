@@ -24,7 +24,7 @@ The kit holds the engine (`lib/`), fonts, a blank `starter/`, `PATTERNS.md` (tec
 ### Normal mode (one topic, wait for an OK at each gate)
 1. **Topic**: if he hasn't given one, suggest 4–6 with the Gita link and a one-line visual idea; give your pick. Any CS/dev concept works.
 2. **Beats**: start with the one-sentence takeaway about the tech and the key moments where real tech appears; then the verse + why it maps, the world, the beats, the ending. Check the concept is technically correct before proposing (he checks; a wrong label once had to be re-rendered). When the topic allows, offer two different formats with your pick and **give both the same depth** (takeaway, how the tech is shown, world, Gita link, 4–6 short beats, ending). Expand the chosen one into shot-by-shot beats only after he picks.
-3. **Dialogue**: numbered lines, speaker + Hinglish only; list on-screen tags separately. No scene directions inside lines.
+3. **Dialogue**: numbered lines, speaker + Hinglish only; list on-screen tags separately. No scene directions inside lines. End with the total spoken word count and the estimated length (section 2); if it's over the planned length, trim before showing it.
 4. **Build** right after the dialogue OK (section 4). Don't ask for approval of stills; don't render repeatedly.
 5. **Deliver** with a short bullet summary of what happens on screen, plus one line on technical accuracy. Flag deviations (length, a split line) in one line each.
 
