@@ -18,7 +18,7 @@ The kit is the private GitHub repo **ShrenikMehar/gitatech-kit**. Sessions only 
 3. If the repo can't be reached (GitHub not connected on this account): use an attached `gitatech-kit.zip`, or, if his computer is connected, ask in one line whether to look for it in Downloads. Otherwise ask him in one line to connect GitHub or attach the zip. Beats and dialogue don't need the kit, so keep going on those while you wait. Never rebuild the kit from scratch: Krishna, Arjun and the look would not match.
 Then `export GT=~/gitatech-kit` (or wherever it is), `bash $GT/setup.sh`, and read `$GT/README.md`, `$GT/PATTERNS.md` and `$GT/starter/ep.py`.
 
-The kit holds the engine (`lib/`), fonts, a blank `starter/`, `PATTERNS.md` (techniques from past episodes), `batch.sh` and this skill (`skill/SKILL.md`). It deliberately holds **no past episode code**, so new episodes start from a blank page instead of copying an old one. Change the repo only when he asks to improve the engine or patterns (commit + push; needs push access). Don't save episodes to it.
+The kit holds the engine (`lib/`), fonts, a blank `starter/`, `PATTERNS.md` (techniques from past episodes), `batch.sh` and this skill (`skill/SKILL.md`). It deliberately holds **no past episode code**, so new episodes start from a blank page instead of copying an old one. Change the repo only when he asks to improve the engine or patterns (small commits, messages starting with a capitalised action like "Add", "Fix", "Update", no type prefixes; push needs push access). Don't save episodes to it.
 
 ## 1. Workflow
 ### Normal mode (one topic, wait for an OK at each gate)
