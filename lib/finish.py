@@ -31,7 +31,7 @@ def main():
     drv = Path(a.driver) if a.driver else Path(sorted(glob.glob(str(E / 'ep*.py')))[0])
     env = dict(os.environ, GT_EP=str(E), GT=str(LIB.parent))
     run([sys.executable, drv, '--cues'], env=env)
-    run([sys.executable, '-I', LIB / 'mix.py', E])
+    run([sys.executable, LIB / 'mix.py', E])   # no -I: on a Mac numpy may live in user site-packages
     if not a.skip_render:
         run([sys.executable, drv, '--workers', a.workers, '--out', E / 'silent.mp4'], env=env)
     out = E / f'{a.name}.mp4'
