@@ -32,7 +32,7 @@ reel-making sessions left in $NOTES (the list of files is in /tmp/gt_review_note
    helper (add to lib/episode.py and document it in PATTERNS.md), a technique worth reusing (PATTERNS.md, written as a
    tool, not as an episode), or guidance (skill/SKILL.md, keep it soft guidance, never hard rules, never 'copy what worked').
    Do not add episode code, templates or lists of past topics or settings: the kit must stay a blank page.
-3. Test what you changed: render a few stills from starter/ (copy it to /tmp, run voices.py, then ep.py --still).
+3. If you changed a helper in lib/, run python3 lib/apidoc.py to refresh API.md. Test what you changed: render a few stills from starter/ (copy it to /tmp, run voices.py, then ep.py --still).
 4. Commit on $BRANCH in small commits whose messages start with a capitalised action (Add, Fix, Update, Remove), no type prefixes. Do not touch main, do not push, do not merge.
 5. Write $NOTES/review-$DAY.md for the owner: one bullet per change (what, why, which notes), then themes you saw but left
    alone and why. Short and factual.
