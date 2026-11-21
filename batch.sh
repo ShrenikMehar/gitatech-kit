@@ -7,29 +7,32 @@
 #   D1_Kubernetes | Kubernetes ← Gita 2.22: changing clothes = replacing pods
 #   D2_Webhooks   | Webhooks ← Gita 4.7–8: whenever dharma declines, I come
 # Blank lines and lines starting with # are skipped.
-# Output: ~/reels/out/NAME.mp4   Logs: ~/reels/logs/NAME.log   Notes: ~/reels/notes/NAME.md   Work: ~/reels/NAME/
+# Output: ~/reels/out/NAME.mp4 (the only folder you need to open).
+# Hidden: working files ~/reels/.work/NAME/ (pruned after 7 days), logs ~/reels/.logs/, notes ~/reels/.notes/.
 # Needs: Claude Code logged in and the gita-tech-reels skill in ~/.claude/skills/. Run it from inside the kit.
 set -u
 TOPICS=${1:?usage: ./batch.sh topics.txt [parallel]}
 PAR=${2:-2}
 KIT=${GT:-$(cd "$(dirname "$0")" && pwd)}   # the kit = the folder this script is in
 OUT=${REELS_OUT:-$HOME/reels/out}
-LOGS=$HOME/reels/logs
-NOTES=$HOME/reels/notes          # one short note per video; ./review.sh turns them into kit improvements
-mkdir -p "$OUT" "$LOGS" "$NOTES"
+LOGS=$HOME/reels/.logs
+NOTES=$HOME/reels/.notes         # one short note per video; ./review.sh turns them into kit improvements
+WORK=$HOME/reels/.work           # episode code, voices, stills; kept 7 days so a shot can still be fixed
+mkdir -p "$OUT" "$LOGS" "$NOTES" "$WORK"
+find "$WORK" -mindepth 1 -maxdepth 1 -type d -mtime +7 -exec rm -rf {} + 2>/dev/null
 git -C "$KIT" pull -q --ff-only 2>/dev/null || echo "note: could not update the kit, using the local copy"
 
 run_one() {
   local name="$1" topic="$2"
-  mkdir -p "$HOME/reels/$name"
+  mkdir -p "$WORK/$name"
   local prompt="Use the gita-tech-reels skill in batch mode: make exactly one video, don't ask me anything, decide everything yourself.
 Topic: $topic
-The kit is at $KIT (export GT=$KIT). Work in $HOME/reels/$name.
+The kit is at $KIT (export GT=$KIT). Work in $WORK/$name.
 Name the final file $name.mp4 and copy it to $OUT/.
 Run every render in the foreground and wait for it to finish before you end.
 Before you end, write $NOTES/$name.md: a heading with the name and today's date, then 2-4 short factual bullets: what broke or needed a workaround (and the fix), which kit helper or pattern was missing or clumsy, and anything that worked notably well. Facts only, no praise. Skip a bullet rather than invent one.
 End with one line: the output path, its length, and anything that deviates from the topic."
-  if (cd "$HOME/reels/$name" && claude -p "$prompt" --allowedTools "Read,Write,Edit,Bash,Glob,Grep" >"$LOGS/$name.log" 2>&1) \
+  if (cd "$WORK/$name" && claude -p "$prompt" --allowedTools "Read,Write,Edit,Bash,Glob,Grep" >"$LOGS/$name.log" 2>&1) \
      && [ -f "$OUT/$name.mp4" ]; then
     echo "done    $name  -> $OUT/$name.mp4"
   else

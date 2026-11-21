@@ -43,10 +43,11 @@ One-time: `mkdir -p ~/.claude/skills/gita-tech-reels && ln -sf "$PWD/skill/SKILL
 ```
 ./batch.sh topics.txt 2      # topics.txt lines: NAME | topic ← Gita x.yy: idea
 ```
+Finished reels land in `~/reels/out/`. Working files (`~/reels/.work/`, kept 7 days), logs and notes are hidden folders.
 
 ## Getting better over time
-Each batch session writes a short note to `~/reels/notes/NAME.md`. Run `./review.sh` about once a week: it groups the notes,
-fixes repeated problems on a branch `review-<date>` (never on main), and writes `~/reels/notes/review-<date>.md`.
+Each batch session writes a short note to `~/reels/.notes/NAME.md`. Run `./review.sh` about once a week: it groups the notes,
+fixes repeated problems on a branch `review-<date>` (never on main), and writes `~/reels/.notes/review-<date>.md`.
 Read it, check `git diff main..review-<date>`, then merge + push to approve or delete the branch to reject.
 
 ## Mac notes

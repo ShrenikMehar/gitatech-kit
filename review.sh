@@ -3,16 +3,17 @@
 #
 #   ./review.sh            run inside the kit (or anywhere: it finds the kit from its own folder)
 #
-# Reads ~/reels/notes/*.md (written by batch.sh sessions), looks for problems that repeat, and makes the fixes on a
+# Reads ~/reels/.notes/*.md (written by batch.sh sessions), looks for problems that repeat, and makes the fixes on a
 # local branch review-YYYY-MM-DD-HHMM: engine (lib/), PATTERNS.md, starter/ or skill/SKILL.md. It never touches main and
-# never pushes. You read ~/reels/notes/review-YYYY-MM-DD-HHMM.md, check the diff, then merge or throw the branch away:
+# never pushes. You read ~/reels/.notes/review-YYYY-MM-DD-HHMM.md, check the diff, then merge or throw the branch away:
 #   git diff main..review-YYYY-MM-DD-HHMM           # what it changed
 #   git checkout main && git merge review-YYYY-MM-DD-HHMM && git push     # approve
 #   git branch -D review-YYYY-MM-DD-HHMM            # reject
-# Processed notes move to ~/reels/notes/reviewed/ so the next review only sees new ones.
+# Processed notes move to ~/reels/.notes/reviewed/ so the next review only sees new ones.
 set -u
 KIT=${GT:-$(cd "$(dirname "$0")" && pwd)}
-NOTES=$HOME/reels/notes
+NOTES=$HOME/reels/.notes
+mkdir -p "$HOME/reels/.logs"
 DAY=$(date +%F-%H%M)
 BRANCH=review-$DAY
 mkdir -p "$NOTES/reviewed"
@@ -36,10 +37,10 @@ reel-making sessions left in $NOTES (the list of files is in /tmp/gt_review_note
 5. Write $NOTES/review-$DAY.md for Shrenik: one bullet per change (what, why, which notes), then themes you saw but left
    alone and why. Short and factual.
 If nothing deserves a change, commit nothing and say so in the review file."
-claude -p "$PROMPT" --allowedTools "Read,Write,Edit,Bash,Glob,Grep" > "$HOME/reels/logs/review-$DAY.log" 2>&1
+claude -p "$PROMPT" --allowedTools "Read,Write,Edit,Bash,Glob,Grep" > "$HOME/reels/.logs/review-$DAY.log" 2>&1
 STATUS=$?
 git checkout -q main
-if [ $STATUS -ne 0 ]; then echo "review session failed (notes kept for next time), see ~/reels/logs/review-$DAY.log"; exit 1; fi
+if [ $STATUS -ne 0 ]; then echo "review session failed (notes kept for next time), see ~/reels/.logs/review-$DAY.log"; exit 1; fi
 while IFS= read -r f; do mv "$f" "$NOTES/reviewed/"; done < /tmp/gt_review_notes.txt
 if [ -z "$(git log main..$BRANCH --oneline)" ]; then
   git branch -q -D "$BRANCH"; echo "no changes proposed. Summary: $NOTES/review-$DAY.md"

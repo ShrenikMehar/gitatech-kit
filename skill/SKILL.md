@@ -89,11 +89,11 @@ python3 $GT/lib/finish.py . --name <FileName>            # cues, mix, render, mu
 - **QA lean**: one still sheet plus 2–3 full-size frames, then `qa.png` after the render. Every image read costs a lot of context.
 - **Fix one shot by splicing**: `python3 $GT/lib/splice.py . A B --name <FileName>` re-renders only [A, B). Changed dialogue needs a full finish.py.
 - Renders use all cores by default (~4–5 min for a minute of video in the cloud). In claude.ai, run long renders in the background, tell him it's rendering, and wait with `sleep` loops (never busy loops). In Claude Code batch runs, render in the foreground.
-- Deliver: in claude.ai copy the mp4 to `/mnt/user-data/outputs/` and send it with SendUserFile; in Claude Code leave it where the prompt says and give the path.
+- Deliver: in claude.ai copy the mp4 to `/mnt/user-data/outputs/` and send it with SendUserFile. In Claude Code (his laptop), work in `~/reels/.work/<name>/` and copy the finished mp4 to `~/reels/out/<name>.mp4`: he only wants the mp4, so `out/` is the one folder he opens (unless a batch prompt says otherwise).
 - New expressions, extra characters and voices, cameras, code panels and other techniques: see PATTERNS.md.
 
 ## 5. Notes and the weekly review
-On his laptop (Claude Code, including `batch.sh` runs), after each reel write `~/reels/notes/<name>.md`: a heading with the name and date, then 2–4 short factual bullets: what broke or needed a workaround (and the fix), which kit helper or pattern was missing or clumsy, anything that worked notably well. Facts only. `review.sh` periodically turns repeated problems into proposed kit changes on a branch that he approves. In claude.ai, skip the note unless he asks.
+On his laptop (Claude Code, including `batch.sh` runs), after each reel write `~/reels/.notes/<name>.md`: a heading with the name and date, then 2–4 short factual bullets: what broke or needed a workaround (and the fix), which kit helper or pattern was missing or clumsy, anything that worked notably well. Facts only. `review.sh` periodically turns repeated problems into proposed kit changes on a branch that he approves. In claude.ai, skip the note unless he asks.
 
 ## 6. Gotchas (more in PATTERNS.md)
 - Devanagari needs shaping: always `K.draw_deva` / `E.verse_card` (Pillow + raqm), never skia text. Tiro Devanagari has no Latin punctuation: use `।`, write the reference in Latin ('GITA 2.58').
