@@ -1,0 +1,14 @@
+{
+ "title": "Starter",
+ "fps": 30,
+ "lead": 0.6,
+ "outro": 1.5,
+ "music": {"bed": "tanpura", "gain": -22},
+ "loudness": -14,
+ "lines": [
+  {"id": "L1", "who": "arjun", "mood": "frustrated", "say": "केशव, मेरा server बार बार गिर जाता है!", "cap": "Keshav, mera *server* baar baar gir jaata hai!"},
+  {"id": "L2", "who": "krishna", "mood": "calm", "say": "पार्थ, इसको कहते हैं single point of failure. सब कुछ एक ही चीज़ पे टिका है।", "cap": "Parth, isko kehte hain *single point of failure.* | Sab kuch *ek hi cheez* pe tika hai.", "gap_before": 0.8},
+  {"id": "L3", "who": "krishna", "mood": "knowing", "say": "गीता में मैंने कहा था, सब मुझ में पिरोया है, जैसे धागे में मोती।", "cap": "Gita mein maine kaha tha, | sab mujh mein piroya hai, *jaise dhaage mein moti.*", "gap_before": 0.9},
+  {"id": "L4", "who": "arjun", "mood": "relief", "say": "तो तीन copies, तीन जगह। अब एक गिरे, तो भी app चलेगी!", "cap": "Toh *teen copies,* teen jagah. | Ab ek gire, toh bhi *app chalegi!*", "gap_before": 0.8}
+ ]
+}
