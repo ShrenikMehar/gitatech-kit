@@ -290,7 +290,7 @@ def pill(c, x, y, txt, col, a, size=20, k=1.0):
     if a <= 0.01:
         return
     f = Wd.font('bold', size)
-    tw = f.measureText(txt) + 28
+    tw = sum(f.measureText(ch) for ch in txt) + 1.0*(len(txt) - 1) + 28   # same letter spacing as the text drawn below
     s = back_out(k) if k < 1 else 1.0
     c.save(); c.translate(x, y); c.scale(s, s)
     rr = skia.RRect.MakeRectXY(skia.Rect(-tw/2, -size*0.95, tw/2, size*0.75), size, size)
