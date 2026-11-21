@@ -12,8 +12,8 @@ from iso import P, SP, glow, hexc, mixc
 W, H = 1080, 1920
 FLOOR_Y = 1180
 HERO = (540, 1000, 260, 300)        # x, y (centre), w, h of the one hero object, in world coords
-ARJ = (250, FLOOR_Y + 40, 0.42)     # standing bust: x, bottom y, scale
-KRI = (830, FLOOR_Y + 40, 0.42)
+ARJ = (250, 1430, 0.42)             # standing bust in screen space: x, bottom y, scale
+KRI = (830, 1430, 0.42)
 
 
 def to_screen(cam, x, y):
@@ -47,9 +47,11 @@ def scene(c, t, st):
     c.translate(-fx, -fy)
     backdrop(c)
     hero(c, st.get('fixed', 0.0), st.get('pulse', 0.0))
-    for draw in st.get('chars', []):
-        draw(c)
     if st.get('overlay'):
         st['overlay'](c)
     c.restore()
+    # Characters are drawn in screen space, after the camera, so zooming the world doesn't resize them.
+    # Draw them inside the camera instead only when they must sit behind world objects.
+    for draw in st.get('chars', []):
+        draw(c)
     return {'hero': to_screen(cam, HERO[0], HERO[1] - HERO[3]/2)}
