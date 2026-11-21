@@ -13,7 +13,7 @@ He posts about 9 reels a day, so **repeating a topic now and then is fine**. Don
 
 ## 0. Get the kit (every new session, silently, before asking anything)
 The kit is the private GitHub repo **ShrenikMehar/gitatech-kit**. Sessions only read it. Try in order:
-1. If `$GT` is set or `~/gitatech-kit/lib/episode.py` exists (Claude Code on his laptop, or a workspace that kept it), use it; `git -C <kit> pull --ff-only` if it's a clone.
+1. If `$GT` is set or `~/gitatech-kit/lib/episode.py` exists (Claude Code on his laptop, or a workspace that kept it), use it as it is. Don't pull: he updates it himself with `git pull`, so the code and these instructions always come from the same version.
 2. Otherwise clone it: `git clone https://github.com/ShrenikMehar/gitatech-kit ~/gitatech-kit`. In claude.ai, attach the repo first with the add-repo tool (read access), then clone.
 3. If the repo can't be reached (GitHub not connected on this account): use an attached `gitatech-kit.zip`, or, if his computer is connected, ask in one line whether to look for it in Downloads. Otherwise ask him in one line to connect GitHub or attach the zip. Beats and dialogue don't need the kit, so keep going on those while you wait. Never rebuild the kit from scratch: Krishna, Arjun and the look would not match.
 Then `export GT=~/gitatech-kit` (or wherever it is), `bash $GT/setup.sh`, and read `$GT/README.md`, `$GT/PATTERNS.md` and `$GT/starter/ep.py`.

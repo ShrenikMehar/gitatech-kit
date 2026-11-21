@@ -19,7 +19,7 @@ BRANCH=review-$DAY
 mkdir -p "$NOTES/reviewed"
 cd "$KIT" || exit 1
 if [ -n "$(git status --porcelain)" ]; then echo "the kit has uncommitted changes; commit or stash them first"; exit 1; fi
-git checkout -q main && git pull -q --ff-only 2>/dev/null
+git checkout -q main
 git checkout -q -b "$BRANCH" || exit 1
 find "$NOTES" -maxdepth 1 -name '*.md' ! -name 'review-*' > /tmp/gt_review_notes.txt
 N=$(wc -l < /tmp/gt_review_notes.txt | tr -d ' ')

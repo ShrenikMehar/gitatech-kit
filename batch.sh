@@ -20,7 +20,6 @@ NOTES=$HOME/reels/.notes         # one short note per video; ./review.sh turns t
 WORK=$HOME/reels/.work           # episode code, voices, stills; kept 7 days so a shot can still be fixed
 mkdir -p "$OUT" "$LOGS" "$NOTES" "$WORK"
 find "$WORK" -mindepth 1 -maxdepth 1 -type d -mtime +7 -exec rm -rf {} + 2>/dev/null
-git -C "$KIT" pull -q --ff-only 2>/dev/null || echo "note: could not update the kit, using the local copy"
 
 run_one() {
   local name="$1" topic="$2"
