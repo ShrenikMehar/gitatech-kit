@@ -142,34 +142,55 @@ def caption_k(c, line, t, a_mul=1.0):
             if wd:
                 words.append((wd, hl))
         hl = not hl
-    f = Wd.font('pop', 54)
-    sp = f.measureText(' ')
-    widths = [f.measureText(x) for x, _ in words]
-    rows = [list(range(len(words)))]
-    if sum(widths) + sp*(len(words) - 1) > 960:
-        best, cutj = 1e9, 1
-        for j in range(1, len(words)):
-            l1 = sum(widths[:j]) + sp*(j - 1)
-            l2 = sum(widths[j:]) + sp*(len(words) - j - 1)
-            if max(l1, l2) < best:
-                best, cutj = max(l1, l2), j
-        rows = [list(range(cutj)), list(range(cutj, len(words)))]
+    size, sp, widths, rows = _caption_layout(words)
     total = sum(len(x) for x, _ in words)
     prog = clamp((t - ps)/max(0.1, pe - ps))
     acc, start = 0, []
     for x, _ in words:
         start.append(acc/total)
         acc += len(x)
-    y = 1684 if len(rows) == 1 else 1664
+    lh = size*1.3
+    y = {1: 1684, 2: 1664}.get(len(rows), 1650)
     for r in rows:
         rw = sum(widths[j] for j in r) + sp*(len(r) - 1)
         x = W/2 - rw/2
         for j in r:
             wd, h = words[j]
             spoken = prog >= start[j] - 0.01
-            Wd.text(c, wd, x, y + dy, 'pop', 54, Wd.GOLD_L if h else Wd.TXT1, a*(1.0 if spoken else 0.38))
+            Wd.text(c, wd, x, y + dy, 'pop', size, Wd.GOLD_L if h else Wd.TXT1, a*(1.0 if spoken else 0.38))
             x += widths[j] + sp
-        y += 70
+        y += lh
+
+
+CAP_W = 960
+
+
+def _caption_layout(words):
+    """Fit a caption page inside the frame: one row, else the most balanced two rows, shrinking the font from 54 down
+    to 42 if needed; a page still too long wraps into three rows at 42 (long pages once ran off both screen edges)."""
+    for size in (54, 50, 46, 42):
+        f = Wd.font('pop', size)
+        sp = f.measureText(' ')
+        widths = [f.measureText(x) for x, _ in words]
+        if sum(widths) + sp*(len(words) - 1) <= CAP_W:
+            return size, sp, widths, [list(range(len(words)))]
+        best, cutj = 1e9, 1
+        for j in range(1, len(words)):
+            l1 = sum(widths[:j]) + sp*(j - 1)
+            l2 = sum(widths[j:]) + sp*(len(words) - j - 1)
+            if max(l1, l2) < best:
+                best, cutj = max(l1, l2), j
+        if best <= CAP_W:
+            return size, sp, widths, [list(range(cutj)), list(range(cutj, len(words)))]
+    rows, cur, cw = [], [], 0.0
+    for j, w_ in enumerate(widths):
+        add = w_ if not cur else sp + w_
+        if cur and cw + add > CAP_W:
+            rows.append(cur); cur, cw = [j], w_
+        else:
+            cur.append(j); cw += add
+    rows.append(cur)
+    return size, sp, widths, rows
 
 
 
