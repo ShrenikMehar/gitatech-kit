@@ -18,7 +18,7 @@ import os
 import re
 import subprocess
 from collections import OrderedDict
-from multiprocessing import Pool
+import multiprocessing as mp
 
 import skia
 
@@ -329,6 +329,11 @@ def finish_frame(c, t, shots=None, flash=True, top_shade=True, end_fade=True):
 _FRAME = [None]
 
 
+def _init_worker(frame):
+    # macOS starts workers with 'spawn': they re-import the driver without running run(), so hand them frame() here.
+    _FRAME[0] = frame
+
+
 def _work(args):
     i, fps = args
     return _FRAME[0](i/fps).toarray(colorType=skia.ColorType.kRGBA_8888_ColorType)[..., :3].tobytes()
@@ -378,7 +383,8 @@ def run(frame, cues):
     ff = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(a.fps),
                            '-i', '-', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', a.out],
                           stdin=subprocess.PIPE)
-    with Pool(a.workers) as pool:
+    ctx = mp.get_context(os.environ.get('GT_MP_START') or None)   # GT_MP_START=spawn reproduces macOS on Linux
+    with ctx.Pool(a.workers, initializer=_init_worker, initargs=(frame,)) as pool:
         for k, buf in enumerate(pool.imap(_work, [(i, a.fps) for i in range(i0, i1)], chunksize=2)):
             ff.stdin.write(buf)
             if k % 150 == 0:
