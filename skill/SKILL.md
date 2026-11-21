@@ -24,7 +24,7 @@ The kit holds the engine (`lib/`), fonts, a blank `starter/`, `PATTERNS.md` (tec
 ### Normal mode (one topic, wait for an OK at each gate)
 1. **Topic**: if he hasn't given one, suggest 4–6 with the Gita link and a one-line visual idea; give your pick. Any CS/dev concept works.
 2. **Beats**: start with the one-sentence takeaway about the tech and the key moments where real tech appears; then the verse + why it maps, the world, the beats, the ending. Check the concept is technically correct before proposing (he checks; a wrong label once had to be re-rendered). When the topic allows, offer two different formats with your pick and **give both the same depth** (takeaway, how the tech is shown, world, Gita link, 4–6 short beats, ending). Expand the chosen one into shot-by-shot beats only after he picks.
-3. **Dialogue**: numbered lines, speaker + Hinglish only; list on-screen tags separately. No scene directions inside lines. End with the total spoken word count and the estimated length (section 2); if it's over the planned length, trim before showing it.
+3. **Dialogue**: numbered lines, speaker + Hinglish only; list on-screen tags separately. No scene directions inside lines. Mention the rough length it will run.
 4. **Build** right after the dialogue OK (section 4). Don't ask for approval of stills; don't render repeatedly.
 5. **Deliver** with a short bullet summary of what happens on screen, plus one line on technical accuracy. Flag deviations (length, a split line) in one line each.
 
@@ -57,7 +57,7 @@ Viewers should clearly get the tech, but story, characters and world make it wat
 - **Make these choices genuinely random**, not 'different from last time'. Roll for them to avoid habits, e.g. `python3 -c "import random; print(random.choice([...]))"`, then shape the episode around the result; re-roll or skip when a clearly better idea exists. Never mention the rolls to him.
 
 ### Dialogue
-- **Dialogue throughout.** He disliked a reel with a long wordless stretch (the microservices one): keep any stretch without a voice under ~3 s, hooks included. Too sparse is also a miss: he rejected a 4-line script as too short; episodes that worked had roughly 9–13 lines. **Estimate length from words, not lines**: plan with about 2.2 spoken words per second of reel, gaps included (four test reels measured 2.0 to 2.6), so ~100 words across all `say` lines for 45 s and ~130 for 60 s. Count before proposing; test reels ran 71, 79, 55 and 59 s against plans of 45, 55, 45 and 51. Keep each caption page to roughly 12 words.
+- **Dialogue throughout.** He disliked a reel with a long wordless stretch (the microservices one): keep any stretch without a voice under ~3 s, hooks included. Too sparse is also a miss: he rejected a 4-line script as too short; episodes that worked had roughly 9–13 lines. Rough length guide: about 2.2 spoken words per second of reel, gaps included (~100 words for 45 s); line counts mislead because long lines run ~7 s.
 - **Krishna's register**: gentle tum-form, never orders: 'hatao', 'karo', 'dekho', not 'hata', 'kar'.
 - **Gita moment small**: usually one spoken line with the verse on a small card for a few seconds, not recited in full.
 - Tech terms spoken in English and shown on screen; a concept tag can pair the term with its metaphor, tech term first (`circuit breaker = kachhua`).
@@ -72,9 +72,8 @@ Viewers should clearly get the tech, but story, characters and world make it wat
 - **Clarity first.** One physical metaphor a viewer gets in 1 s without captions; cause → effect visible on screen; one hero object, big; at most 2 labels + 1 concept tag at a time; one state change at a time; prefer metaphors where the failure is obvious (jam, overflow, collapse, pile-up). A stone tortoise as a living arch with orbs and threads was 'weird and difficult to understand'; two chariots stuck on a one-lane bridge read instantly.
 - **Setting: whatever the scenario needs.** Indian (ghat, bazaar, gurukul, railway station, temple kitchen), mythic, modern (office, metro, home kitchen, cricket ground), abstract or sci-fi. Map each tech entity to a physical thing. A familiar setting is fine when it serves the concept; he found scenes repetitive when the same few settings came back out of habit, so don't default to one without a reason.
 - **Look and camera are open**: isometric worlds with bust close-ups, flat 2D side views, full-screen diagrams, code panels, split screens, characters inside the world, close-up-only. Keep Krishna and Arjun looking the same. Sound is open too: tanpura and the SFX set are defaults; a concept can get its own soundscape.
-- One unchanging frame for a whole reel gets flat on a phone, even when it's clear: a push-in, a close-up or a cut every 10–15 s keeps it moving. Skip this when a single shot genuinely serves the idea.
 - A HUD (one number that tells the story) helps when it does; a HUD gag on the punchline has landed well.
-- **Readable on a phone**: no on-screen text under ~26 px at 1080 wide (code and error text 30 px or more: give a panel the full width rather than shrinking the font), and standing busts not below ~0.35 scale. If a shot needs many small labels (a grid of rooms with tiny numbers, names under every object), it is too busy: show fewer things bigger, or split it across two shots.
+- **Readable on a phone**: text and code big enough to read on a phone screen; if a shot needs many tiny labels, it's probably too busy.
 - Safe zones: HUD top-right (y < ~190, plus any graph under it), captions from y 1440 down, action in the middle band (fill empty space by moving the camera, not by adding clutter). Concept tags and labels must not overlap: check on stills.
 
 ## 4. Building an episode
@@ -87,7 +86,7 @@ GT_EP=$PWD python3 ep.py --still 1 5 9 13 ...            # stills/ + stills/shee
 python3 $GT/lib/finish.py . --name <FileName>            # cues, mix, render, mux, qa.png
 ```
 - `starter/ep.py` shows the mechanics only (word-timed beats, shots, standing busts, close-up with verse card, HUD, cues); `lib/episode.py` holds the plumbing. Write the world and story fresh; take techniques from `PATTERNS.md`, not from memory of old episodes.
-- **After voices, run check.py.** A truncated Krishna line once broke the voice ~15 s into a delivered reel; regenerate only the flagged line. Several episodes ran 15–25 s over plan; if it's well over, tighten now, not after the render.
+- **After voices, run check.py.** A truncated Krishna line once broke the voice ~15 s into a delivered reel; regenerate only the flagged line.
 - **QA lean**: one still sheet plus 2–3 full-size frames, then `qa.png` after the render. Every image read costs a lot of context.
 - **Fix one shot by splicing**: `python3 $GT/lib/splice.py . A B --name <FileName>` re-renders only [A, B). Changed dialogue needs a full finish.py.
 - Renders use all cores by default (~4–5 min for a minute of video in the cloud). In claude.ai, run long renders in the background, tell him it's rendering, and wait with `sleep` loops (never busy loops). In Claude Code batch runs, render in the foreground.
@@ -102,5 +101,3 @@ python3 $GT/lib/finish.py . --name <FileName>            # cues, mix, render, mu
 - JetBrains Mono here is a latin subset: no `→` or `✕` (use `›`, draw icons with paths). Inter has `₹` and `↺`.
 - skia's SVG renderer drops gradient fills on `<ellipse>`: draw ellipses as paths.
 - An object in front of the path of moving things hides the key motion: check every important motion on a still.
-- Objects next to a standing bust (a jar beside Krishna) can cover the face: check object x against each bust's face on the first still.
-- Over bright scenes use `E.hud(..., plate=True)`, or the HUD is unreadable.
