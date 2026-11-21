@@ -116,6 +116,7 @@ scenario needs; none of them is required, and new episodes can invent their own.
 - An object in front of the path of moving things hides the key motion: check every important motion on a still.
 - Objects placed beside a standing bust can cover its face: keep props clear of the bust's face x, or move the bust.
 - Bright daytime scenes make the HUD unreadable: `E.hud(..., plate=True)`.
-- Length: roughly 5 s per dialogue line at the default voice rates.
+- Length: about 2.4 spoken words per second of reel, gaps included (45 s is about 110 words).
+- Phone readability: keep text at 26 px or more and standing busts at 0.35 scale or more; tiny labels mean the shot is too busy.
 - Bust renders are cached; a new (expression, mouth, blink, brow, gaze) combination costs ~50 ms the first time.
 - Render speed is roughly 2.5 to 3 frames/s per 2 cores.

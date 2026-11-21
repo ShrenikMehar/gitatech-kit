@@ -57,7 +57,7 @@ Viewers should clearly get the tech, but story, characters and world make it wat
 - **Make these choices genuinely random**, not 'different from last time'. Roll for them to avoid habits, e.g. `python3 -c "import random; print(random.choice([...]))"`, then shape the episode around the result; re-roll or skip when a clearly better idea exists. Never mention the rolls to him.
 
 ### Dialogue
-- **Dialogue throughout.** He disliked a reel with a long wordless stretch (the microservices one): keep any stretch without a voice under ~3 s, hooks included. Too sparse is also a miss: he rejected a 4-line script as too short; episodes that worked had roughly 9–13 lines. **Estimate length as ~5 s per line** at the default voice rates when you propose it (14 lines came out at 71 s against a planned 45).
+- **Dialogue throughout.** He disliked a reel with a long wordless stretch (the microservices one): keep any stretch without a voice under ~3 s, hooks included. Too sparse is also a miss: he rejected a 4-line script as too short; episodes that worked had roughly 9–13 lines. **Estimate length from words, not lines**: about 2.4 spoken words per second of reel, gaps included, so ~110 words across all `say` lines for 45 s and ~145 for 60 s. Count before proposing; two test reels ran 71 s and 79 s against plans of 45 and 55. Keep each caption page to roughly 12 words.
 - **Krishna's register**: gentle tum-form, never orders: 'hatao', 'karo', 'dekho', not 'hata', 'kar'.
 - **Gita moment small**: usually one spoken line with the verse on a small card for a few seconds, not recited in full.
 - Tech terms spoken in English and shown on screen; a concept tag can pair the term with its metaphor, tech term first (`circuit breaker = kachhua`).
@@ -73,6 +73,7 @@ Viewers should clearly get the tech, but story, characters and world make it wat
 - **Setting: whatever the scenario needs.** Indian (ghat, bazaar, gurukul, railway station, temple kitchen), mythic, modern (office, metro, home kitchen, cricket ground), abstract or sci-fi. Map each tech entity to a physical thing. A familiar setting is fine when it serves the concept; he found scenes repetitive when the same few settings came back out of habit, so don't default to one without a reason.
 - **Look and camera are open**: isometric worlds with bust close-ups, flat 2D side views, full-screen diagrams, code panels, split screens, characters inside the world, close-up-only. Keep Krishna and Arjun looking the same. Sound is open too: tanpura and the SFX set are defaults; a concept can get its own soundscape.
 - A HUD (one number that tells the story) helps when it does; a HUD gag on the punchline has landed well.
+- **Readable on a phone**: no on-screen text under ~26 px at 1080 wide, and standing busts not below ~0.35 scale. If a shot needs many small labels (a grid of rooms with tiny numbers, names under every object), it is too busy: show fewer things bigger, or split it across two shots.
 - Safe zones: HUD top-right (y < ~190, plus any graph under it), captions from y 1440 down, action in the middle band (fill empty space by moving the camera, not by adding clutter). Concept tags and labels must not overlap: check on stills.
 
 ## 4. Building an episode
