@@ -72,6 +72,12 @@ def plate(t, a, b, f=0.12):
     return ramp(t, a, f)*(1 - ramp(t, b - f, f))
 
 
+def lerp_cam(a, b, k):
+    """Blend two flat 2D camera tuples (scale, focus_x, focus_y, screen_y), or any equal-length number tuples.
+    For isometric iso.Cam keyframes use gt.cam_lerp instead."""
+    return tuple(x + (y - x)*k for x, y in zip(a, b))
+
+
 def shot_at(t, shots):
     """shots: [(start, kind, key)] sorted. Returns ((start, kind, key), next_start)."""
     cur, nxt = shots[0], DUR

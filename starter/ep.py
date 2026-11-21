@@ -38,8 +38,7 @@ CAM_PUSH = (1.25, 540, 1000, 900)
 
 def cam_at(t):
     if t < T_CU1:
-        k = ease(clamp(t/max(0.1, T_CU1)))
-        return tuple(a + (b - a)*k for a, b in zip(CAM_WIDE, CAM_PUSH))
+        return E.lerp_cam(CAM_WIDE, CAM_PUSH, ease(clamp(t/max(0.1, T_CU1))))
     return CAM_WIDE
 
 

@@ -10,7 +10,8 @@ scenario needs; none of them is required, and new episodes can invent their own.
 - **All beat times come from word times**: `E.w('L4', 3)` (start of audio word 3 of line L4), `E.we(...)` (its end),
   `E.cut('L3', 'L4')` (a shot boundary between lines). Never hard-code seconds; re-voicing would break them.
   Word indices are what `voices.py` prints (`index:word@time`); audio words can differ from caption tokens.
-- `SHOTS = [(start, kind, key)]` + `E.shot_at(t, SHOTS)` gives the current shot and when it ends.
+- `SHOTS = [(start, kind, key)]` + `E.shot_at(t, SHOTS)` gives the current shot and when it ends. A second entry
+  of the same kind (e.g. `(T_WHATIF, 'world', None)`) adds a cut flash that hides a hard state switch in the world.
 - `E.setup(page_at=..., emph=...)`: `page_at` = audio word index where page 2 of a `|` caption starts;
   `emph` = words that get a nod and brow lift.
 - Finish every frame with `E.finish_frame(c, t, SHOTS)` (vignette, cut flash, karaoke caption, end fade).
@@ -39,8 +40,10 @@ scenario needs; none of them is required, and new episodes can invent their own.
 
 ## Cameras and layout
 - **Flat 2D**: the world is drawn in its own coordinates and the camera is a tuple `(scale, focus_x, focus_y, screen_y)`:
-  `c.translate(540, screen_y); c.scale(s, s); c.translate(-fx, -fy)`. Lerp between named layouts
-  (e.g. a "stage" layout and a "world under a panel" layout) with an eased k.
+  `c.translate(540, screen_y); c.scale(s, s); c.translate(-fx, -fy)`. Blend named layouts (e.g. "stage" and
+  "world under a panel") with `E.lerp_cam(A, B, ease(k))`. `K.cam_lerp` is for isometric `iso.Cam` only.
+- Draw characters in screen space (after the camera transform) so zooming the world doesn't resize them; draw them
+  inside the camera only when they must sit behind world objects.
 - **Isometric**: `iso.Cam(x, y, zoom, sy0=...)`; `cam.p(x, y, z)` maps world to screen. Keyframe cameras as tuples
   and blend with `K.cam_lerp(A, B, k)` / `K.C(A)`. Draw objects sorted by depth (x + y). Boxes and cylinders:
   `iso.box`, `iso.cylinder`; text on a face: `c.concat(iso.front_left_matrix(cam, x, y, z)); c.scale(0.01, 0.01)`,
