@@ -27,7 +27,7 @@ if [ "$N" -eq 0 ]; then git checkout -q main; git branch -q -D "$BRANCH"; echo "
 PROMPT="You are reviewing the Gita x Tech reel kit at $KIT (branch $BRANCH, already checked out) using $N notes that past
 reel-making sessions left in $NOTES (the list of files is in /tmp/gt_review_notes.txt). Read them all.
 
-1. Group the notes into themes. Only act on problems that repeat (2+ notes) or that broke a video; ignore one-offs and taste.
+1. Group the notes into themes. Only act on kit bugs and problems that repeat (2+ notes); ignore one-offs, taste and style tips. Prefer fixing code over adding guidance: the skill must stay open, so add a guidance line only for something clearly broken.
 2. For each theme, make the smallest fix in the right place: a bug in lib/ (fix it, keep the API), a missing or clumsy
    helper (add to lib/episode.py and document it in PATTERNS.md), a technique worth reusing (PATTERNS.md, written as a
    tool, not as an episode), or guidance (skill/SKILL.md, keep it soft guidance, never hard rules, never 'copy what worked').

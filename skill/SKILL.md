@@ -95,7 +95,7 @@ python3 $GT/lib/finish.py . --name <FileName>            # cues, mix, render, mu
 - New expressions, extra characters and voices, cameras, code panels and other techniques: see PATTERNS.md.
 
 ## 5. Notes and the weekly review
-On his laptop (Claude Code, including `batch.sh` runs), after each reel write `~/reels/.notes/<name>.md`: a heading with the name and date, then 2–4 short factual bullets: what broke or needed a workaround (and the fix), which kit helper or pattern was missing or clumsy, anything that worked notably well. Facts only. `review.sh` periodically turns repeated problems into proposed kit changes on a branch that he approves. In claude.ai, skip the note unless he asks.
+**Most reels need no note.** On his laptop, write `~/reels/.notes/<name>.md` only when the kit itself broke or forced a workaround: a crash, a wrong result from a helper, something you had to patch or hand-roll that the kit should clearly handle. One short bullet per problem, with the fix. Leave out layout choices, length, taste, techniques that worked and tips for next time: those are judgement calls for each episode, and turning them into rules would make the kit rigid. `review.sh` turns notes that repeat into proposed fixes on a branch he approves. In claude.ai, skip notes unless he asks.
 
 ## 6. Gotchas (more in PATTERNS.md)
 - Devanagari needs shaping: always `K.draw_deva` / `E.verse_card` (Pillow + raqm), never skia text. Tiro Devanagari has no Latin punctuation: use `।`, write the reference in Latin ('GITA 2.58').

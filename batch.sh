@@ -29,7 +29,7 @@ Topic: $topic
 The kit is at $KIT (export GT=$KIT). Work in $WORK/$name.
 Name the final file $name.mp4 and copy it to $OUT/.
 Run every render in the foreground and wait for it to finish before you end.
-Before you end, write $NOTES/$name.md: a heading with the name and today's date, then 2-4 short factual bullets: what broke or needed a workaround (and the fix), which kit helper or pattern was missing or clumsy, and anything that worked notably well. Facts only, no praise. Skip a bullet rather than invent one.
+Only if the kit itself broke or forced a workaround (a crash, a wrong result from a helper, something you had to patch), write $NOTES/$name.md with one short bullet per problem and its fix. Most videos need no note: skip layout choices, length, taste and tips.
 End with one line: the output path, its length, and anything that deviates from the topic."
   if (cd "$WORK/$name" && claude -p "$prompt" --allowedTools "Read,Write,Edit,Bash,Glob,Grep" >"$LOGS/$name.log" 2>&1) \
      && [ -f "$OUT/$name.mp4" ]; then
