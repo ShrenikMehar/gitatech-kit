@@ -218,6 +218,8 @@ def main():
             music = np.tile(music, (reps, 1))[:n]
             music = music / (np.abs(music).max() + 1e-9)
         music = music[:n]
+        if len(music) < n:   # beds can come out a sample short of the narration
+            music = np.pad(music, ((0, n - len(music)), (0, 0)))
         # duck under the voice: smoothed voice envelope pushes the music down ~8 dB
         hop = SR // 100
         r = np.sqrt(np.mean(voice[: (n // hop) * hop].reshape(-1, hop) ** 2, axis=1))
