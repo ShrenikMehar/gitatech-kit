@@ -10,6 +10,7 @@
 # Want two at once? Run a second terminal with a different topics file (the same file would make the same reels twice).
 # Output: ~/reels/out/NAME.mp4 (the only folder you need to open). Progress prints live in the terminal.
 # Hidden: working files ~/reels/.work/NAME/ (pruned after 7 days), full logs ~/reels/.logs/, notes ~/reels/.notes/.
+# Model: Claude Code's default unless you set one, e.g.  REEL_MODEL=sonnet ./batch.sh topics.txt
 # Needs: Claude Code logged in and the gita-tech-reels skill in ~/.claude/skills/.
 set -u
 TOPICS=${1:?usage: ./batch.sh topics.txt}
@@ -32,8 +33,10 @@ Run every render in the foreground and wait for it to finish before you end.
 Progress is shown to me from your messages: before each stage (choosing the format, writing the dialogue, voices, building the scene, stills, rendering) write one short line saying what you're doing, e.g. 'Writing the dialogue'.
 Only if the kit itself broke or forced a workaround (a crash, a wrong result from a helper, something you had to patch), write $NOTES/$name.md with one short bullet per problem and its fix. Most videos need no note: skip layout choices, length, taste and tips.
 End with one line: the output path, its length, and anything that deviates from the topic."
-  (cd "$WORK/$name" && claude -p "$prompt" --allowedTools "Read,Write,Edit,Bash,Glob,Grep" \
-      --output-format stream-json --verbose </dev/null 2>"$LOGS/$name.err" \
+  # --strict-mcp-config: no MCP servers or claude.ai connectors. Reels don't need them, and each one's tool list
+  # was re-sent on every turn (the first test reel loaded 60 tools instead of 25).
+  (cd "$WORK/$name" && claude -p "$prompt" --allowedTools "Read,Write,Edit,Bash,Glob,Grep" --strict-mcp-config \
+      ${REEL_MODEL:+--model "$REEL_MODEL"} --output-format stream-json --verbose </dev/null 2>"$LOGS/$name.err" \
     | python3 -u "$KIT/lib/progress.py" --log "$LOGS/$name.log")
   [ -f "$OUT/$name.mp4" ]
 }
